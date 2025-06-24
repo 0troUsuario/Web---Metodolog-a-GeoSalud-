@@ -348,6 +348,120 @@
 
     
   </style>
+
+ <style>
+.testimonios {
+  background-color: #F5F5F5;
+  text-align: center;
+  padding: 60px 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.titulo-testimonio {
+  font-weight: 300;
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+.contenedor-testimonio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 20px;
+  min-height: 180px; /* altura mínima fija */
+  gap: 20px;
+}
+
+.flecha {
+  font-size: 1.8em;
+  font-weight: normal;
+  cursor: pointer;
+  user-select: none;
+  color: #555;
+  transition: color 0.3s;
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+}
+
+.flecha:hover {
+  color: #000;
+}
+
+.testimonio-activo {
+  transition: transform 0.6s ease, opacity 0.4s ease;
+  flex: 1;
+  max-width: 100%;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.texto-testimonio {
+  font-style: italic;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  font-weight: 300;
+  color: #333;
+  line-height: 1.4;
+}
+
+.cargo {
+  font-weight: 500;
+  color: #003366;
+  margin-bottom: 5px;
+}
+
+.nombre {
+  font-weight: 400;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.indicadores {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.punto {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  background-color: #000;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.punto.activo {
+  background-color: transparent;
+}
+
+@media (max-width: 600px) {
+  .texto-testimonio {
+    font-size: 1em;
+  }
+
+  .flecha {
+    font-size: 1.5em;
+  }
+
+  .testimonios {
+    padding: 40px 10px;
+  }
+}
+
+
+ </style>
+
 </head>
 <body>
   <div class="overlay" id="overlay"></div>
@@ -430,14 +544,32 @@
 </div>
 
 
+    <!-- aquí, en la parte de abajo de este comentario es que quiero que vaya lo que te dije de la seccion de "testimonio", puedes reemplazar los "Hola" y "br" de abajo por lo nuevo-->
 
 
-        <h1 class = "peruano"> Hola</h1> <br><br><br><br> <h1>Hola</h1> <br><br><br> <h2>he</h2> <br><br><br>
-        <h1>El</h1> <br><br><br><br><br><h2> N</h2> <br><br><br> <h1> k</h1>
 
-        
-        <h1 class = "peruano"> Hola</h1> <br><br><br><br> <h1>Hola</h1> <br><br><br> <h2>he</h2> <br><br><br>
-        <h1>El</h1> <br><br><br><br><br><h2> N</h2> <br><br><br> <h1> k</h1>
+<!-- Sección de Testimonios -->
+<section class="testimonios">
+  <h2 class="titulo-testimonio">Testimonio</h2>
+  <div class="contenedor-testimonio">
+    <span class="flecha" id="prev">&#60;</span>
+    <div class="testimonio-activo">
+      <p class="texto-testimonio">"El servicio fue excelente, me sentí acompañado en todo momento."</p>
+      <p class="cargo">Paciente</p>
+      <p class="nombre">Carlos Méndez</p>
+    </div>
+    <span class="flecha" id="next">&#62;</span>
+  </div>
+  <div class="indicadores">
+    <span class="punto activo"></span>
+    <span class="punto"></span>
+    <span class="punto"></span>
+  </div>
+</section>
+
+
+
+        <!--Hasta aquí-->
         
       </div>
 
@@ -601,5 +733,84 @@
     showSlide(current);
     startProgress();
   </script>
+
+  <!--Script pal testimonio-->
+<script>
+  const testimonios = [
+    {
+      texto: '"El servicio fue excelente, me sentí acompañado en todo momento."',
+      cargo: 'Paciente',
+      nombre: 'Carlos Méndez'
+    },
+    {
+      texto: '"Gracias al equipo médico, hoy me siento mucho mejor y más confiado."',
+      cargo: 'Médico Especialista',
+      nombre: 'Dra. Ana Ruiz'
+    },
+    {
+      texto: '"Una atención impecable y un trato muy humano. Totalmente recomendado."',
+      cargo: 'Paciente',
+      nombre: 'José Luis Gómez'
+    }
+  ];
+
+  let indiceActual = 0;
+  const texto = document.querySelector(".texto-testimonio");
+  const cargo = document.querySelector(".cargo");
+  const nombre = document.querySelector(".nombre");
+  const puntos = document.querySelectorAll(".punto");
+  const contenedor = document.querySelector(".testimonio-activo");
+
+  function actualizarTestimonio(nuevoIndice) {
+    const testimonio = testimonios[nuevoIndice];
+
+    contenedor.style.opacity = "0";
+    contenedor.style.transform = "translateX(-40px)";
+    
+    setTimeout(() => {
+      texto.textContent = testimonio.texto;
+      cargo.textContent = testimonio.cargo;
+      nombre.textContent = testimonio.nombre;
+
+      contenedor.style.transform = "translateX(40px)";
+      setTimeout(() => {
+        contenedor.style.opacity = "1";
+        contenedor.style.transform = "translateX(0)";
+      }, 50);
+    }, 300);
+
+    puntos.forEach((punto, i) => {
+      punto.classList.toggle("activo", i === nuevoIndice);
+    });
+  }
+
+  document.getElementById("prev").addEventListener("click", () => {
+    indiceActual = (indiceActual - 1 + testimonios.length) % testimonios.length;
+    actualizarTestimonio(indiceActual);
+    reiniciarAutoCambio();
+  });
+
+  document.getElementById("next").addEventListener("click", () => {
+    indiceActual = (indiceActual + 1) % testimonios.length;
+    actualizarTestimonio(indiceActual);
+    reiniciarAutoCambio();
+  });
+
+  // Cambio automático cada 6 segundos
+  let intervalo = setInterval(() => {
+    indiceActual = (indiceActual + 1) % testimonios.length;
+    actualizarTestimonio(indiceActual);
+  }, 6000);
+
+  function reiniciarAutoCambio() {
+    clearInterval(intervalo);
+    intervalo = setInterval(() => {
+      indiceActual = (indiceActual + 1) % testimonios.length;
+      actualizarTestimonio(indiceActual);
+    }, 6000);
+  }
+</script>
+
+
 </body>
 </html>
