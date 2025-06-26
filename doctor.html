@@ -187,6 +187,17 @@
         <a href="geolocalizacion.html" class="opcion">Geolocalización</a>
         <a href="doctores.html" class="opcion">Doctores</a>
         <a href="chat.html" class="opcion">Chat</a>
+
+              <!-- La sección de abajo es la de los temas -->
+        <div class="opcion tema-toggle" onclick="toggleTemaOpciones()">Temas</div>
+        <div class="tema-opciones" id="tema-opciones">
+          <label><input type="radio" name="tema" value="default" onchange="cambiarTema(this.value)"> Por defecto</label>
+          <label><input type="radio" name="tema" value="protanopia" onchange="cambiarTema(this.value)"> Protanopía</label>
+          <label><input type="radio" name="tema" value="deuteranopia" onchange="cambiarTema(this.value)"> Deuteranopía</label>
+          <label><input type="radio" name="tema" value="tritanopia" onchange="cambiarTema(this.value)"> Tritanopía</label>
+        </div>
+        <!-- Fin temas -->
+
       </div>
 
       <div class="cerrar-sesion">

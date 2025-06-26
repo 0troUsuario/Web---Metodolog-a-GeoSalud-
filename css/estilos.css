@@ -6,6 +6,118 @@
   padding: 0;
   box-sizing: border-box;
 }
+/* Nuevo, para los estilos del "Tema"*/
+.opcion-tema {
+  padding: 10px 15px; /* Igual que .opcion */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.opcion-tema:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.tema-opciones {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  padding-left: 15px; /* Para alinear con el texto */
+}
+
+.tema-opciones.activo {
+  max-height: 200px; /* Ajusta si es necesario */
+  opacity: 1;
+}
+
+.tema-opciones {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  padding-left: 15px;
+}
+
+.tema-opciones.mostrar {
+  max-height: 200px; /* Se puede ajustar según la altura total de los labels */
+  opacity: 1;
+}
+
+
+/*Animaciones de las opciones*/
+.submenu-temas {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.submenu-temas.activo {
+  max-height: 200px; /* Ajusta según la altura total de los radios */
+  opacity: 1;
+}
+
+/*Fin de animaciones*/
+
+
+
+
+:root {
+  --color-fondo-lateral: #205191;
+  --color-texto-lateral: white;
+  --color-fondo-superior: #1abc9c;
+  --color-fondo-doctor-top: #4A90E2;
+  --color-fondo-doctor-bottom: #f0f0f0;
+  --color-boton: #4A90E2;
+  --color-boton-hover: #357ABD;
+}
+
+
+.tema-opciones input[type="radio"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tema-opciones input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: black;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.2s ease;
+}
+
+.tema-opciones input[type="radio"]::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s ease;
+}
+
+
+
+
+/*Fin estilos "Tema"*/
 
 /* Contenedor general */
 .contenedor {
@@ -37,8 +149,8 @@
 /* Barra lateral izquierda */
 .barra-lateral {
   width: 250px;
-  background-color: #205191;
-  color: white;
+  background-color: var(--color-fondo-lateral);
+  color: var(--color-texto-lateral);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -119,12 +231,13 @@
 
 .barra-superior {
   height: 60px;
-  background-color: #1abc9c;
+  background-color: var(--color-fondo-superior);
+  color: var(--color-texto-lateral);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  color: white;
+
   font-weight: bold;
   position: sticky;
   top: 0;
@@ -319,7 +432,7 @@
 }
 
 .doctor-top {
-  background-color: #4A90E2;
+  background-color: var(--color-fondo-doctor-top);
   width: 100%;
   text-align: center;
   padding: 20px 10px 40px;
@@ -344,7 +457,7 @@
 
 /* PARTE INFERIOR (color de la parte inferior)*/
 .doctor-bottom {
-  background-color: #f0f0f0;
+  background-color: var(--color-fondo-doctor-bottom);
   width: 100%;
   padding: 50px 15px 20px;
   margin-top: -30px;
@@ -386,7 +499,7 @@
 
 .view-more {
   margin-top: 15px;
-  background-color: #4A90E2;
+  background-color: var(--color-boton);
   color: white;
   border: none;
   padding: 8px 16px;
@@ -395,7 +508,7 @@
   transition: background-color 0.3s;
 }
 .view-more:hover {
-  background-color: #357ABD;
+  background-color: var(--color-boton-hover);
 }
 
 /* Responsive  */
@@ -417,3 +530,105 @@
 
 
 /*Fin efecto tarjetas (espacio)*/
+
+
+/*Nuevos estilos para los "Temas"*/
+
+body.protanopia {
+  --color-fondo-lateral: #a67d7d;
+  --color-texto-lateral: #000;
+  --color-fondo-superior: #ffb3b3;
+  --color-fondo-doctor-top: #e07d7d;
+  --color-fondo-doctor-bottom: #fdf2f2;
+  --color-boton: #a94442;
+  --color-boton-hover: #922d2d;
+}
+
+body.deuteranopia {
+  --color-fondo-lateral: #7d9fa6;
+  --color-texto-lateral: #000;
+  --color-fondo-superior: #b3e0ff;
+  --color-fondo-doctor-top: #7dbde0;
+  --color-fondo-doctor-bottom: #f0faff;
+  --color-boton: #337ab7;
+  --color-boton-hover: #23527c;
+}
+
+body.tritanopia {
+  --color-fondo-lateral: #d2a6d2;
+  --color-texto-lateral: #000;
+  --color-fondo-superior: #f6c2f6;
+  --color-fondo-doctor-top: #d27de0;
+  --color-fondo-doctor-bottom: #fcf0fd;
+  --color-boton: #b44db4;
+  --color-boton-hover: #922d92;
+}
+
+body.default {
+  /* mismo que los originales */
+  --color-fondo-lateral: #205191;
+  --color-texto-lateral: white;
+  --color-fondo-superior: #1abc9c;
+  --color-fondo-doctor-top: #4A90E2;
+  --color-fondo-doctor-bottom: #f0f0f0;
+  --color-boton: #4A90E2;
+  --color-boton-hover: #357ABD;
+}
+
+/*Fin estilos "Tema"*/
+
+
+/*Estilos para los botones*/
+.tema-container {
+  margin-top: 10px;
+  padding: 0 10px;
+}
+
+.tema-toggle {
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+.tema-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.tema-opciones {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  padding-left: 10px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.tema-opciones.mostrar {
+  max-height: 200px; /* o más, si me decanto por agregar  más temas */
+}
+
+
+.tema-opciones label {
+  color: var(--color-texto-lateral);
+  font-size: 0.9em;
+  margin-bottom: 5px;
+}
+
+.tema-opciones input[type="radio"] {
+  margin-right: 6px;
+}
+
+
+/*Nuevo*/
+.tema-tritanopia {
+  background-color: #fff !important;
+  color: black !important;
+}
+
+.tema-tritanopia * {
+  color: black !important;
+}
+
+
+/*Fin estilo botones*/
