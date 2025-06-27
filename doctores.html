@@ -328,7 +328,7 @@
       overlay.classList.remove('visible');
     });
   </script>
-<!-- Animación de aparecer-->
+
   <script>
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".doctor-card");
@@ -395,6 +395,66 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <!--Fin script estilos-->
+
+<!--Calendario icono (se supone que al usar back y agendar con un doctor, debería aparecer un icono de calendario encima de la tarjeta del doctor en la sección "doctores.html", lo probé con php y funcionó)-->
+<style>
+  .doctor-card .calendar-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #1abc9c;
+  font-size: 20px;
+  background: white;
+  border-radius: 50%;
+  padding: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 2;
+}
+.doctor-card {
+  position: relative;
+}
+
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const agendados = JSON.parse(localStorage.getItem("doctoresAgendados")) || [];
+
+  // Marcar con ícono de calendario
+  document.querySelectorAll(".doctor-card").forEach(card => {
+    const nombre = card.querySelector(".doctor-name").textContent;
+
+    if (agendados.includes(nombre)) {
+      const icono = document.createElement("i");
+      icono.className = "fas fa-calendar-check calendar-icon";
+      card.appendChild(icono);
+    }
+
+    const boton = card.querySelector(".view-more");
+
+    boton.addEventListener("click", () => {
+      const imagen = card.querySelector("img").getAttribute("src");
+      const nombre = card.querySelector(".doctor-name").textContent;
+      const especialidad = card.querySelector(".specialty").textContent;
+      const hospital = card.querySelectorAll(".doctor-info")[0].textContent.replace("", "").trim();
+      const horario = card.querySelectorAll(".doctor-info")[1].textContent.replace("", "").trim();
+
+      const datosDoctor = {
+        imagen,
+        nombre,
+        especialidad,
+        hospital,
+        horario
+      };
+
+      localStorage.setItem("perfilDoctor", JSON.stringify(datosDoctor));
+
+      window.location.href = "doctorDefault.html";
+    });
+  });
+});
+</script>
+
 
 
 
