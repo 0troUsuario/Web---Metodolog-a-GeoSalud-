@@ -5,6 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Perfil de usuario</title>
   <link rel="stylesheet" href="css/estilos.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
+
+
+  <style> /*Tipo de fuente*/
+
+
+  </style>
+
+<!--contenido dinamico-->
+  <style>
+.contenedor-dinamico {
+  width: 95%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* alineado a la izquierda */
+  gap: 15px;
+}
+
+.bloque-info {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding: 15px 20px;
+  width: 100%;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+
+  </style>
+<!--Fin dinamico-->
+
   <style>
     .opcion {
       text-decoration: none;
@@ -55,6 +90,7 @@
     flex-direction: column;
     font-weight: bold;
     align-items: center; 
+    
   }
 
 
@@ -109,11 +145,32 @@
     }
 
     .rectangulos {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+
+
+.rectangulo {
+  background-color: #ccc;
+  width: 160px;
+  height: 50px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 10px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
     .rectangulo {
       background-color: #ccc;
@@ -127,10 +184,24 @@
       height: 150px;
       border-radius: 10px;
       padding: 10px;
+      padding-left: 25px;
       margin: 0 auto;
       width: 95%;
       max-width: 800px;
     }
+    .descripcion p {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 5px 0;
+      font-size: 1rem;
+    }
+
+    .descripcion p i {
+      min-width: 20px;
+      text-align: center;
+    }
+
 
     .botones {
       display: flex;
@@ -182,7 +253,117 @@
       }
     }
   </style>
+  <!--Estilo del perfil contenido-->
+<style>
+  .rectangulo {
+  background-color: #ccc;
+  width: 120px;
+  height: 50px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.boton-opcion {
+  background-color: #205191 !important; /* azul */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.boton-opcion.activo {
+  background-color: #1abc9c !important; /* verde menta */
+}
+
+
+
+</style>
+<!--Fin estilo del perfil contenido-->
+
 </head>
+<style>
+  .popup-historial {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  width: 300px;
+  border-radius: 10px;
+  display: none;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.popup-historial .contenido-popup {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.popup-historial h3 {
+  margin-top: 0;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.popup-historial ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.popup-historial li {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  font-size: 14px;
+  line-height: 1.4;
+  border-bottom: 1px solid #ccc; 
+}
+
+.popup-historial li:last-child {
+  border-bottom: none; 
+}
+
+
+.popup-historial button {
+  background-color: #1abc9c;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.popup-historial button:hover {
+  background-color: #16a085;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .popup-historial {
+    width: 90%;
+    right: 5%;
+  }
+}
+
+</style>
+
 <body>
   <div class="overlay" id="overlay"></div>
 
@@ -235,11 +416,11 @@
           <span></span>
         </button>
 
-        <div class="barra-superior-titulo">Barra superior</div>
+        <div class="barra-superior-titulo"> <!-- Contenedor de botones a la derecha --></div>
 
         <!-- Contenedor de botones a la derecha -->
         <div class="barra-superior-derecha">
-          <button class="btn-agendar">Agendar cita</button>
+          <button class="btn-agendar" onclick="mostrarHistorial()">Historial de citas</button>
           <button class="btn-notificacion" aria-label="Notificaciones">
             <!-- Icono campana SVG -->
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2"
@@ -251,27 +432,42 @@
         </div>
       </div>
 
-      <div class="contenido">
+<div class="contenido">
         <div class="perfil-grande">
           <img src="img/perfilUsuario01.jpg" alt="Imagen de perfil" />
           <div class="nombre-usuario">Nombre de Usuario</div>
         </div>
 
+        <!-- Óvalos con texto -->
         <div class="rectangulos">
-          <div class="rectangulo"></div>
-          <div class="rectangulo"></div>
+          <div class="rectangulo">Ced: 8-888-888</div>
+          <div class="rectangulo">Tel: 6000-0000</div>
         </div>
 
-        <div class="descripcion"></div>
+        <!-- Datos generales del paciente -->
+        <div class="descripcion" id="datos-generales">
+          <p><i class="fas fa-tint"></i> Tipo de sangre: O+</p>
+          <p><i class="fas fa-weight"></i> Peso: 70 kg</p>
+          <p><i class="fas fa-ruler-vertical"></i> Altura: 1.75 m</p>
+          <p><i class="fas fa-notes-medical"></i> Afecciones previas: Ninguna</p>
+        </div>
 
+
+        <!-- Botones -->
         <div class="botones">
-          <button>xxxxxx</button>
-          <button>xxxxxx</button>
-          <button>xxxxxx</button>
+          <button class="boton-opcion activo" onclick="cambiarSeccion(this, 'historial')">Historial Médico</button>
+          <button class="boton-opcion" onclick="cambiarSeccion(this, 'alergias')">Alergias</button>
+          <button class="boton-opcion" onclick="cambiarSeccion(this, 'vacunas')">Vacunas</button>
         </div>
 
         <div class="linea-divisoria"></div>
+
+        <!-- Contenido dinámico -->
+      <div id="contenido-dinamico" class="contenedor-dinamico">
+        <!-- Aquí el JS insertará los bloques -->
       </div>
+
+
     </div>
   </div>
 
@@ -324,8 +520,113 @@
 
 </script>
 
+<div id="popup-historial" class="popup-historial">
+  <div class="contenido-popup">
+    <h3>Historial de Citas</h3>
+    <ul>
+      <li>
+        <strong>Dr. Ana Torres</strong> (Cardióloga) <br> – Clínica Santa Fe – 12/07/2025
+      </li>
+      <li>
+        <strong>Dr. Luis Pérez</strong> (Dermatólogo) <br>– Hospital Central – 05/07/2025
+      </li>
+      <li>
+        <strong>Dra. Carmen Ríos</strong> (Pediatra) <br> – Centro Médico Sur – 28/06/2025
+      </li>
+    </ul>
+    <button onclick="cerrarHistorial()">Cerrar</button>
+  </div>
+</div>
+
+<script>
+  function mostrarHistorial() {
+    document.getElementById("popup-historial").style.display = "block";
+  }
+
+  function cerrarHistorial() {
+    document.getElementById("popup-historial").style.display = "none";
+  }
+
+  // Opcional: cerrar si se hace clic fuera del popup
+  window.addEventListener("click", function (e) {
+    const popup = document.getElementById("popup-historial");
+    if (popup.style.display === "block" && !popup.contains(e.target) && !e.target.closest('.btn-agendar')) {
+      popup.style.display = "none";
+    }
+  });
+</script>
+
+
+
 
 
 <!--Fin script estilos-->
+
+<script>
+function cambiarSeccion(boton, seccion) {
+  const contenido = document.getElementById("contenido-dinamico");
+  const botones = document.querySelectorAll(".boton-opcion");
+
+  // Cambiar estilo de botones
+  botones.forEach(btn => btn.classList.remove("activo"));
+  boton.classList.add("activo");
+
+  // Limpiar contenido anterior
+  contenido.innerHTML = "";
+
+  // Contenido dinámico según sección
+  let bloques = [];
+
+  switch(seccion) {
+    case 'historial':
+      bloques = [
+        "Consulta general – 10/05/2025 – Médico: Dra. Sánchez",
+        "Evaluación de presión arterial – 20/03/2025 – Médico: Dr. Gómez",
+        "Control anual – 15/01/2025 – Médico: Dra. Ríos"
+      ];
+      break;
+
+    case 'alergias':
+      bloques = [
+        "Alergia a penicilina – Reacción: Erupción cutánea",
+        "Alergia al polen – Reacción: Congestión nasal"
+      ];
+      break;
+
+    case 'vacunas':
+      bloques = [
+        "COVID-19 – Última dosis: 2024-12-15",
+        "Hepatitis B – Completa",
+        "Influenza – Aplicada el 05/07/2025"
+      ];
+      break;
+  }
+
+  // Insertar bloques al DOM
+  bloques.forEach(texto => {
+    const div = document.createElement("div");
+    div.className = "bloque-info";
+    div.textContent = texto;
+    contenido.appendChild(div);
+  });
+}
+
+</script>
+
+<!--Script del pre-load de los datos del perfil-->
+<script>
+  // Selección por defecto al cargar
+  window.addEventListener("DOMContentLoaded", () => {
+    const botonHistorial = document.querySelector(".boton-opcion[onclick*='historial']");
+    if (botonHistorial) {
+      cambiarSeccion(botonHistorial, 'historial');
+    }
+  });
+</script>
+
+<!--Fin Script del pre-load de los datos del perfil-->
+
 </body>
 </html>
+
+

@@ -156,6 +156,78 @@
       }
     }
   </style>
+  <style>
+  .popup-historial {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  width: 300px;
+  border-radius: 10px;
+  display: none;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.popup-historial .contenido-popup {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.popup-historial h3 {
+  margin-top: 0;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.popup-historial ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.popup-historial li {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  font-size: 14px;
+  line-height: 1.4;
+  border-bottom: 1px solid #ccc; 
+}
+
+.popup-historial li:last-child {
+  border-bottom: none; 
+}
+
+
+.popup-historial button {
+  background-color: #1abc9c;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.popup-historial button:hover {
+  background-color: #16a085;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .popup-historial {
+    width: 90%;
+    right: 5%;
+  }
+}
+
+</style>
+
 </head>
 <body>
   <div class="overlay" id="overlay"></div>
@@ -167,10 +239,10 @@
         <div class="nombre-usuario">Nombre de Usuario</div>
       </a>
       <div class="menu">
-        <a href="inicio.html" class="opcion">Inicio</a>
-        <a href="geolocalizacion.html" class="opcion">Geolocalización</a>
-        <a href="doctores.html" class="opcion">Doctores</a>
-        <a href="chat.html" class="opcion">Chat</a>
+        <a href="inicio.html" class="opcion"><span>Inicio</span></a>
+        <a href="geolocalizacion.html" class="opcion"><span>Geolocalización</span></a>
+        <a href="doctores.html" class="opcion"><span>Doctores</span></a>
+        <a href="chat.html" class="opcion"><span>Chat</span></a>
 
               <!-- La sección de abajo es la de los temas -->
         <div class="opcion tema-toggle" onclick="toggleTemaOpciones()">Temas</div>
@@ -201,9 +273,9 @@
         <button class="btn-menu-hamburguesa" aria-label="Menú">
           <span></span><span></span><span></span>
         </button>
-        <div class="barra-superior-titulo">Barra superior</div>
+        <div class="barra-superior-titulo"> <!-- Epa, texto--></div>
         <div class="barra-superior-derecha">
-          <button class="btn-agendar">Agendar cita</button>
+          <button class="btn-agendar" onclick="mostrarHistorial()">Historial de citas</button>
           <button class="btn-notificacion" aria-label="Notificaciones">
             <!--SVG de la campana -->
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-campana" viewBox="0 0 24 24" width="24" height="24">
@@ -340,6 +412,63 @@
 });
 
 </script>
+
+</script>
+
+<div id="popup-historial" class="popup-historial">
+  <div class="contenido-popup">
+    <h3>Historial de Citas</h3>
+    <ul>
+      <li>
+        <strong>Dr. Ana Torres</strong> (Cardióloga) <br> – Clínica Santa Fe – 12/07/2025
+      </li>
+      <li>
+        <strong>Dr. Luis Pérez</strong> (Dermatólogo) <br>– Hospital Central – 05/07/2025
+      </li>
+      <li>
+        <strong>Dra. Carmen Ríos</strong> (Pediatra) <br> – Centro Médico Sur – 28/06/2025
+      </li>
+    </ul>
+    <button onclick="cerrarHistorial()">Cerrar</button>
+  </div>
+</div>
+
+<script>
+  function mostrarHistorial() {
+    document.getElementById("popup-historial").style.display = "block";
+  }
+
+  function cerrarHistorial() {
+    document.getElementById("popup-historial").style.display = "none";
+  }
+
+  // Opcional: cerrar si se hace clic fuera del popup
+  window.addEventListener("click", function (e) {
+    const popup = document.getElementById("popup-historial");
+    if (popup.style.display === "block" && !popup.contains(e.target) && !e.target.closest('.btn-agendar')) {
+      popup.style.display = "none";
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+  const opciones = document.querySelectorAll('.barra-lateral .opcion');
+  const rutaActual = window.location.pathname.split("/").pop();
+
+  opciones.forEach(opcion => {
+    const rutaOpcion = opcion.getAttribute('href');
+    if (rutaOpcion === rutaActual) {
+      opcion.classList.remove('activa'); // quitar para reiniciar animación
+      void opcion.offsetWidth;            // forzar reflow
+      opcion.classList.add('activa');    // añadir clase para animar línea
+    }
+  });
+});
+
+</script>
+
+
 
 
 
